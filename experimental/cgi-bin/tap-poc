@@ -1,0 +1,12 @@
+#! /usr/bin/perl -T
+use strict;
+use warnings;
+use Test::More tests => 5;
+
+sub main {
+    print "Content-type: text/plain\n\n";
+    ok(5, "five");
+    is(2+2, 4, "2+2=");
+}
+
+exit main();
