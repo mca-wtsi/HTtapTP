@@ -1,0 +1,5 @@
+pre.tap { border: thin black dotted; padding: 1em }
+
+.pass { background: #00a000; height: 3em; overflow: auto }
+.fail { background: #a00000 }
+
