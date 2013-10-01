@@ -1,12 +1,21 @@
 #! /usr/bin/perl -T
 use strict;
 use warnings;
-use Test::More tests => 5;
+
+use lib '/www/mca/www-dev/lib/bootstrap';
+use WebTAP;
+use Test::More;
 
 sub main {
-    print "Content-type: text/plain\n\n";
+    plan tests => 2;
+    my $name = $ENV{HTTP_X_WEBTAP_NAME};
+    diag "name = $name";
     ok(5, "five");
     is(2+2, 4, "2+2=");
+    warn "hmm?\nit must be a <b>warning</b>";
+sleep 35 if $name eq 'snore';
+    die "This one is broken" if $name eq 'b0rk'; # XXX: non-API
+    diag explain \%ENV;
 }
 
 exit main();
