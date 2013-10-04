@@ -1,0 +1,79 @@
+=head1 NAME
+
+HTtapTP - tools supported Test Anything Protocol over HTTP
+
+
+=head1 DESCRIPTION
+
+This tool arose from
+
+=over 4
+
+=item * some ad-hoc tests which loaded with JavaScript into an HTML table
+
+=item * the need to write some more tests with a similar interface
+
+=item * a Perl-world preference for TAP
+
+=back
+
+=head2 The plan
+
+=over 4
+
+=item * generate TAP from CGI scripts
+
+While continuing to allow them to run directly under F<prove(1)>
+
+=item * load and parse the TAP in the web browser
+
+=item * display neat green / red output
+
+=back
+
+
+=head1 AUTHOR
+
+Matthew Astley C<< <mca@sanger.ac.uk> >>
+
+
+=head1 COPYRIGHT
+
+This project includes source code installed from
+
+=over 4
+
+=item * L<http://requirejs.org/docs/download.html>
+
+=item * L<https://npmjs.org/package/tap-parser> and other NPM modules
+
+packaged by L<http://browserify.org/>
+
+=item * L<http://jquery.com/download/>
+
+=back
+
+which have their own copyright statements and are currently in
+F<htdocs-devmode/ext-js/>.  The remainder of the code is
+
+  Copyright (c) 2013 Genome Research Ltd.
+  Author: Anacode team
+
+  Any redistribution or derivation in whole or in part including any
+  substantial portion of this code must include this copyright and
+  permission notice.
+
+  THIS SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+  EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+  MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+  IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+  CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
+  TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
+  SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+  This code is free software; you can redistribute it and/or modify it
+  under the terms of the GNU General Public License as published by the
+  Free Software Foundation; either version 2 of the License, or (at
+  your option) any later version (http://www.gnu.org/copyleft/gpl.txt).
+
+=cut

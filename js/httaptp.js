@@ -1,14 +1,9 @@
+define(
 
-// As suggested at http://requirejs.org/docs/jquery.html
-require.config({
-    baseUrl: '/otter-web-utils/webtap/scripts/',
-    paths: {
-        jquery: 'jquery-1.10.2.min',
-    }
-});
+"httaptp", // name of module
 
-require([ 'jquery', 'tap-parser--browserified' ],
-function  ($,        tp) {
+[       'jquery', 'tap-parser' ], // array of dependencies
+function($,        tp) {
   "use strict";
 
   var put_results = function(results, ele) {
@@ -29,7 +24,7 @@ function  ($,        tp) {
     var ele_name = ele.attributes["name"];
     ele_name = ele_name ? ele_name.value : ele.id;
 
-    var hdrs = { "X-WebTAP-Name": ele_name };
+    var hdrs = { "X-HTtapTP-Name": ele_name };
 
     var fn_deliver = function(data) {
       ele.textContent = data; // HTML is quoted for us
@@ -54,5 +49,9 @@ function  ($,        tp) {
     });
   };
 
-  $("pre.tap").each(function() { fetch_tap(this) });
-});
+  var load_to_doc = function(selector) {
+    $(selector).each(function() { fetch_tap(this) });
+  };
+
+  return { load_to_doc: load_to_doc, fetch_tap: fetch_tap };
+};
