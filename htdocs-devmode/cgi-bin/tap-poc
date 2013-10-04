@@ -1,4 +1,6 @@
-#! /usr/bin/perl -T
+#! /usr/bin/perl
+# Not -T because we probably need to use the PERL5LIB
+
 use strict;
 use warnings;
 
@@ -7,7 +9,7 @@ use Test::More;
 
 sub main {
     plan tests => 2;
-    my $name = $ENV{HTTP_X_HTTAPTP_NAME};
+    my $name = $ENV{HTTP_X_HTTAPTP_NAME} || '';
     diag "name = $name";
     ok(5, "five");
     is(2+2, 4, "2+2=");

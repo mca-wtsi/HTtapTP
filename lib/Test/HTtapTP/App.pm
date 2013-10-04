@@ -17,6 +17,7 @@ sub new {
     return $self;
 }
 
+
 sub devmode {
     my ($self) = @_;
     $self->root; # for side effects
@@ -43,18 +44,31 @@ sub root {
     };
 }
 
+
 sub to_app {
     my ($self) = @_;
 
     my $root = $self->root;
-    my $cgi = Plack::App::CGIBin->new(root => "$root/cgi-bin");
+    my $cgi = $self->devmode ? $self->cgi : undef;
 
     my $app = builder {
         mount '/' => Plack::App::Directory->new({ root => $root });
-        mount '/cgi-bin' => $cgi->to_app if $self->devmode;
+        mount '/cgi-bin' => $cgi->to_app if $cgi;
     };
 
     return $app;
 }
+
+sub cgi {
+    my ($self) = @_;
+    my $root = $self->root;
+    my %cgi =
+      (root => "$root/cgi-bin",
+       # Always exec, because
+       # XXX: Test::HTtapTP doesn't work under CGI::Compile, it runs too early
+       exec_cb => sub { 1 });
+    return Plack::App::CGIBin->new(%cgi);
+}
+
 
 1;

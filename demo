@@ -3,7 +3,9 @@
 use strict;
 use warnings;
 
-use lib 'lib';
+use lib 'lib'; # ugh, but my plackup works
+$ENV{PERL5LIB} = "lib:$ENV{PERL5LIB}"; # double ugh, but cgi subprocess works
+
 use Test::HTtapTP::App;
 
 my $app = Test::HTtapTP::App->new->to_app;
