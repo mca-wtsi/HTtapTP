@@ -1,26 +1,8 @@
-package WebTAP; # a working title
+package Test::HTtapTP::Builder;
 use strict;
 use warnings;
 
-require Test::Builder;
 
-sub __init {
-    my $Test = Test::Builder->new; # the singleton
-
-    # Do this to ensure that { plan tests => 1; ok(1, "cool"); die }
-    # will show an explicit failure
-    WebTAP::Builder->rebless_singleton($Test);
-
-    $Test->init_for_web if $ENV{GATEWAY_INTERFACE};
-
-    return;
-}
-
-
-__init();
-
-
-package WebTAP::Builder;
 our @ISA;
 
 # This is horrible.  Monkey-patching Test::Builder::is_passing is an

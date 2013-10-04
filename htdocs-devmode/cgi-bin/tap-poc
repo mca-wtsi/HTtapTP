@@ -2,13 +2,12 @@
 use strict;
 use warnings;
 
-use lib '/www/mca/www-dev/lib/bootstrap';
-use WebTAP;
+use Test::HTtapTP;
 use Test::More;
 
 sub main {
     plan tests => 2;
-    my $name = $ENV{HTTP_X_WEBTAP_NAME};
+    my $name = $ENV{HTTP_X_HTTAPTP_NAME};
     diag "name = $name";
     ok(5, "five");
     is(2+2, 4, "2+2=");
