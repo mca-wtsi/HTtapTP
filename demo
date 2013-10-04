@@ -1,0 +1,9 @@
+#! /usr/bin/env plackup
+# -*- cperl -*-
+use strict;
+use warnings;
+
+use lib 'lib';
+use Test::HTtapTP::App;
+
+my $app = Test::HTtapTP::App->new->to_app;
