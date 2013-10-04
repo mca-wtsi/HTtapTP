@@ -54,4 +54,4 @@ function($,        tp) {
   };
 
   return { load_to_doc: load_to_doc, fetch_tap: fetch_tap };
-};
+});
