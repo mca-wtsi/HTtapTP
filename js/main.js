@@ -11,5 +11,5 @@ require.config({
 
 require([ 'httaptp' ],
 function  (httaptp) {
-  httaptp.load_to_doc("pre.tap");
+  httaptp.load_to_doc("div[data-tap-src]");
 });

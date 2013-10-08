@@ -7,9 +7,10 @@ function($,        tp) {
   "use strict";
 
   var put_results = function(results, ele) {
-    console.log("Results from " + ele.attributes["data-tap-src"].value);
-    ele.classList.add( results["ok"] ? 'pass' : 'fail' );
-    // ele.textContent += "\n\n" + JSON.stringify(results);
+    console.log("Results from " + ele.attr("data-tap-src"));
+    ele.removeClass('loading');
+    ele.addClass( results["ok"] ? 'pass' : 'fail' );
+  };
   };
 
   var fetch_tap = function(ele) {
@@ -18,16 +19,21 @@ function($,        tp) {
       put_results(results, ele);
     });
 
-    var url = ele.attributes["data-tap-src"].value;
+    ele[0].innerHTML = "<pre> Loading ... </pre><div class='control'>\
+  <button> Cancel </button>\
+  <button> Show </button>\
+</div>";
+    ele.addClass('loading');
 
-    // "name" from @name || @id
-    var ele_name = ele.attributes["name"];
-    ele_name = ele_name ? ele_name.value : ele.id;
+    var url = ele.attr("data-tap-src");
 
-    var hdrs = { "X-HTtapTP-Name": ele_name };
+    var hdrs = {
+      "X-HTtapTP-Name": // "name" from @name || @id
+          ele.attr("name") || ele.attr("id"),
+    };
 
     var fn_deliver = function(data) {
-      ele.textContent = data; // HTML is quoted for us
+      ele.find("pre")[0].textContent = data; // HTML is quoted for us
       parser.write(data);
       parser.end();
     };
@@ -50,7 +56,10 @@ function($,        tp) {
   };
 
   var load_to_doc = function(selector) {
-    $(selector).each(function() { fetch_tap(this) });
+    var sel_all = $( selector );
+    for (var i=0; i < sel_all.length; i++) {
+      fetch_tap( sel_all.eq(i) );
+    }
   };
 
   return { load_to_doc: load_to_doc, fetch_tap: fetch_tap };

@@ -1,5 +1,45 @@
-pre.tap { border: thin black dotted; padding: 1em }
+/* shared and persistent style */
+div[data-tap-src] { border: thin black dotted; padding: 1em }
 
-.pass { background: #00a000; height: 3em; overflow: auto }
-.fail { background: #a00000 }
+/* pre-loading style - allow for minimal HTML */
+div[data-tap-src]:before        { content: 'JavaScript fail?' }
+div[data-tap-src][class]:before { content: normal }
 
+
+/* classes & elements added by JavaScript */
+div[data-tap-src] pre {
+  white-space: pre-wrap;
+  overflow: auto;
+  background: black;
+  color: white;
+  border: 2px grey solid;
+  border-radius: 1.5ex;
+  padding: 1.5ex;
+}
+
+div[data-tap-src].loading {
+  border: 5px yellow solid;
+}
+
+div[data-tap-src].fail {
+  background: #a00000;
+}
+
+div[data-tap-src].pass {
+  background: #00a000;
+  display: inline;
+}
+div[data-tap-src].pass pre {
+  height: 3em;
+  width: 3em;
+  overflow: hidden;
+  display: none;
+}
+div[data-tap-src].show pre {
+  display: block;
+  position: fixed;
+  top: 10%;
+  left: 10%;
+  right: 10%;
+  bottom: 10%;
+}
