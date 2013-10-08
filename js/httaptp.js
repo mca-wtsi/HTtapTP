@@ -6,6 +6,8 @@ define(
 function($,        tp) {
   "use strict";
 
+  var version = "0.02"; // XXX: not synced from Git
+
   var put_results = function(results, ele) {
     console.log("Results from " + ele.attr("data-tap-src"));
     ele.removeClass('loading');
@@ -30,6 +32,7 @@ function($,        tp) {
     var hdrs = {
       "X-HTtapTP-Name": // "name" from @name || @id
           ele.attr("name") || ele.attr("id"),
+      "X-HTtapTP-Version": version,
     };
 
     var fn_deliver = function(data) {
@@ -62,5 +65,9 @@ function($,        tp) {
     }
   };
 
-  return { load_to_doc: load_to_doc, fetch_tap: fetch_tap };
+  return {
+    load_to_doc: load_to_doc,
+    fetch_tap: fetch_tap,
+    version: version,
+  };
 });
