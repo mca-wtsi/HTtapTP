@@ -53,4 +53,6 @@ div[data-tap-src].show div.control {
   left: 10%;
   right: 10%;
   padding: 1ex;
+  width: auto;
+  height: auto;
 }
