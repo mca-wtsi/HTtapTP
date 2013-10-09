@@ -19,7 +19,7 @@ sub main {
 
     warn "hmm?\nit must be a <b>warning</b>";
     if ($name eq 'snore') {
-        sleep 35; # timeout = 30s
+        sleep 5; # timeout = 3s
     } elsif ($name eq 'b0rk') {
         die "This one is broken - after the passes";
     } # else, whatever

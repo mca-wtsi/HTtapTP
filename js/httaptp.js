@@ -65,6 +65,7 @@ function($,        tp) {
     ele.prop({ results: null });
 
     var url = ele.attr("data-tap-src");
+    var timeout = ele.attr("data-tap-timeout-ms") || 30000;
 
     var hdrs = {
       "X-HTtapTP-Name": // "name" from @name || @id
@@ -95,7 +96,7 @@ function($,        tp) {
       url: url,
       type: "GET",
       dataType: "text",
-      timeout: 30000, // ms
+      timeout: timeout, // ms
       headers: hdrs,
       success: fn_deliver,
       error: fn_error,
