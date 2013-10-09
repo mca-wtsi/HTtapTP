@@ -27,7 +27,6 @@ div[data-tap-src].fail {
 
 div[data-tap-src].pass {
   background: #00a000;
-  display: inline;
 }
 div[data-tap-src].pass pre {
   height: 3em;
@@ -38,8 +37,20 @@ div[data-tap-src].pass pre {
 div[data-tap-src].show pre {
   display: block;
   position: fixed;
-  top: 10%;
+  top: 6em;
   left: 10%;
   right: 10%;
-  bottom: 10%;
+  bottom: 6em;
+  width: auto;
+  height: auto;
+  overflow: auto;
+}
+div[data-tap-src].show div.control {
+  display: block;
+  position: fixed;
+  background: grey;
+  top: 3em;
+  left: 10%;
+  right: 10%;
+  padding: 1ex;
 }
