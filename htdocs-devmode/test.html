@@ -4,9 +4,13 @@
   <script type="text/javascript" src="ext-js/require.js" data-main="js/main"></script>
   <link rel="stylesheet" type="text/css" href="httaptp.css" />
   <style type="text/css">
-.cols-2 div {
-  width: 45%;
-  float: left;
+table {
+  width: 100%;
+  border-collapse: separate;
+  border: 2px blue solid;
+}
+td {
+  border: 2px purple solid;
 }
   </style>
 </head>
@@ -15,11 +19,13 @@
 
   <div id="another"    data-tap-src="cgi-bin/tap-poc"></div>
   <div id="plain fail" data-tap-src="cgi-bin/tap-poc"></div>
-  <div class="cols-2">
-    <div name="try-it"   data-tap-src="cgi-bin/tap-poc"></div>
-    <div name="b0rk"     data-tap-src="cgi-bin/tap-poc"></div>
-  </div>
-  <div name="foom"     data-tap-src="yerky/moogle"   ></div>
+  <table>
+   <tr>
+    <td name="try-it"  data-tap-src="cgi-bin/tap-poc"></td>
+    <td name="b0rk"    data-tap-src="cgi-bin/tap-poc"></td>
+   </tr><tr>
+    <td name="foom"    data-tap-src="yerky/moogle"   colspan="2"></td>
+  </tr></table>
   <div name="snore"    data-tap-src="cgi-bin/tap-poc"></div>
 
 </body>

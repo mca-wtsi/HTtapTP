@@ -1,13 +1,13 @@
 /* shared and persistent style */
-div[data-tap-src] { border: thin black dotted; padding: 1em }
+[data-tap-src] { border: thin black dotted; padding: 1em }
 
 /* pre-loading style - allow for minimal HTML */
-div[data-tap-src]:before        { content: 'JavaScript fail?' }
-div[data-tap-src][class]:before { content: normal }
+[data-tap-src]:before        { content: 'JavaScript fail?' }
+[data-tap-src][class]:before { content: normal }
 
 
 /* classes & elements added by JavaScript */
-div[data-tap-src] pre {
+[data-tap-src] pre {
   white-space: pre-wrap;
   overflow: auto;
   background: black;
@@ -17,24 +17,24 @@ div[data-tap-src] pre {
   padding: 1.5ex;
 }
 
-div[data-tap-src].loading {
+[data-tap-src].loading {
   border: 5px yellow solid;
 }
 
-div[data-tap-src].fail {
+[data-tap-src].fail {
   background: #a00000;
 }
 
-div[data-tap-src].pass {
+[data-tap-src].pass {
   background: #00a000;
 }
-div[data-tap-src].pass pre {
+[data-tap-src].pass pre {
   height: 3em;
   width: 3em;
   overflow: hidden;
   display: none;
 }
-div[data-tap-src].show pre {
+[data-tap-src].show pre {
   display: block;
   position: fixed;
   top: 6em;
@@ -45,7 +45,7 @@ div[data-tap-src].show pre {
   height: auto;
   overflow: auto;
 }
-div[data-tap-src].show div.control {
+[data-tap-src].show div.control {
   display: block;
   position: fixed;
   background: grey;
