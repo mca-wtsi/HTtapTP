@@ -1,0 +1,4 @@
+These tests are not distribution self-tests which should pass, but
+example tests which have "interesting" pass or failure properties.
+
+They are used by the standard distribution tests in t/
