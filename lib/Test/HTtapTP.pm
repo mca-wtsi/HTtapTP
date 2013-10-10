@@ -2,15 +2,12 @@ package Test::HTtapTP;
 use strict;
 use warnings;
 
-use Test::HTtapTP::Builder;
-require Test::Builder;
-
 sub __init {
-    my $Test = Test::Builder->new; # the singleton
+    require Test::HTtapTP::Builder;
 
     # Do this to ensure that { plan tests => 1; ok(1, "cool"); die }
     # will show an explicit failure
-    Test::HTtapTP::Builder->rebless_singleton($Test);
+    my $Test = Test::HTtapTP::Builder->rebless_singleton;
 
     $Test->init_for_web if $ENV{GATEWAY_INTERFACE};
 
@@ -18,7 +15,8 @@ sub __init {
 }
 
 
-__init();
+__init()
+  unless $ENV{TEST_HTTAPTP_INHIBIT}; # intended for use in HTtapTP self-tests
 
 
 1;
