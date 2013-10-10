@@ -1,0 +1,143 @@
+---
+Flavour: direct
+fail/01small.t:
+  err: |2
+    
+    #   Failed test 'false'
+    #   at egt/fail/01small.t line 10.
+    # Looks like you failed 1 test of 2.
+  exit: 256
+  out: |
+    1..2
+    not ok 1 - false
+    ok 2 - so we know we ran the test correctly
+  test: fail/01small.t
+  tool: perl
+fail/02simple.t:
+  err: |2
+    
+    #   Failed test 'false'
+    #   at egt/fail/02simple.t line 10.
+    # Looks like you failed 1 test of 2.
+  exit: 256
+  out: |
+    1..2
+    ok 1 - so we know we ran the test correctly
+    not ok 2 - false
+  test: fail/02simple.t
+  tool: perl
+fail/03subtest.t:
+  err: |2
+        # Looks like you planned 2 tests but ran 1.
+    
+    #   Failed test 'bar'
+    #   at egt/fail/03subtest.t line 23.
+    # Looks like you failed 1 test of 2.
+  exit: 256
+  out: |
+    1..2
+        ok 1 - one
+        ok 2 - two
+        1..2
+    ok 1 - foo
+        1..2
+        ok 1 - three
+    not ok 2 - bar
+  test: fail/03subtest.t
+  tool: perl
+fail/04noisy.t:
+  err: |
+    # this is diagit goes on a bitbut could be useful
+    warning (without filename for easier GuruChecksDiffs)
+    
+    #   Failed test 'false'
+    #   at egt/fail/04noisy.t line 15.
+    # Looks like you failed 1 test of 2.
+  exit: 256
+  out: |
+    ok 1 - true
+    not ok 2 - false
+    1..2
+  test: fail/04noisy.t
+  tool: perl
+fail/05dubious_die.t:
+  err: |
+    died after testing complete
+    then did reset the exit code, but non-zero
+    # Looks like your test exited with 28 just after 1.
+    
+    #   Failed test 'fail marker on STDOUT from Test::HTtapTP::Builder, to show is_passing being cleared'
+    #   at /nfs/users/nfs_m/mca/gitwk-anacode/HTtapTP/lib/Test/HTtapTP/Builder.pm line 30.
+  exit: 7168
+  out: |
+    1..1
+    ok 1 - true
+    not ok 2 - fail marker on STDOUT from Test::HTtapTP::Builder, to show is_passing being cleared
+  test: fail/05dubious_die.t
+  tool: perl
+fail/sigINT.t:
+  err: ''
+  exit: 2
+  out: "1..1\nok 1 - true\n"
+  test: fail/sigINT.t
+  tool: perl
+fail/sigKILL__TODO.t:
+  err: ''
+  exit: 9
+  out: "1..1\nok 1 - true\n"
+  test: fail/sigKILL__TODO.t
+  tool: perl
+fail/sigQUIT.t:
+  err: ''
+  exit: 3
+  out: "1..1\nok 1 - true\n"
+  test: fail/sigQUIT.t
+  tool: perl
+pass/01small.t:
+  err: ''
+  exit: 0
+  out: "1..1\nok 1 - true\n"
+  test: pass/01small.t
+  tool: perl
+pass/02simple.t:
+  err: ''
+  exit: 0
+  out: "1..1\nok 1 - true\n"
+  test: pass/02simple.t
+  tool: perl
+pass/03subtest.t:
+  err: ''
+  exit: 0
+  out: |
+    1..2
+        ok 1 - one
+        ok 2 - two
+        1..2
+    ok 1 - foo
+        1..2
+        ok 1 - three
+        ok 2 - four
+    ok 2 - bar
+  test: pass/03subtest.t
+  tool: perl
+pass/04noisy.t:
+  err: |
+    # this is diag
+    # it goes on a bit
+    # but could be useful
+    warning (without filename for easier GuruChecksDiffs)
+  exit: 0
+  out: |
+    ok 1 - true
+    ok 2 - second and last
+    1..2
+  test: pass/04noisy.t
+  tool: perl
+pass/05dubious_die.t:
+  err: |
+    died after testing complete
+    then did reset the exit code
+  exit: 0
+  out: "1..1\nok 1 - true\n"
+  test: pass/05dubious_die.t
+  tool: perl
