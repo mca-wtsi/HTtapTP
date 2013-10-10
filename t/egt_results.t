@@ -18,7 +18,7 @@ use File::Temp qw( tempfile );
 my $egt_dir;
 my $flavour;
 sub main {
-    plan tests => 8;
+    plan tests => 9;
 
     $egt_dir = __FILE__;
     $egt_dir =~ s{t/egt_results\.t$}{egt}
@@ -35,6 +35,9 @@ sub main {
         # Examine the output with + without extra hackery
         subtest "output_$flavour" => \&output_tt;
     }
+
+    $flavour = 'cgi';
+    subtest "output_$flavour" => \&output_tt;
 
     return;
 }
@@ -81,6 +84,8 @@ sub output_tt {
 
     my $want_fn = "$egt_dir/want_$flavour.yaml";
     my $got_fn = "$want_fn~got~last~"; # covered by .gitignore
+
+    local $ENV{GATEWAY_INTERFACE} = ($flavour eq 'cgi' ? 'CGI/bogus' : '');
 
 #    my ($expect) = LoadFile($want_fn);
 #
