@@ -2,6 +2,10 @@ package Test::HTtapTP::Builder;
 use strict;
 use warnings;
 
+use Test::Builder 0.94;
+# 0.92 doesn't have the is_passing hook we need
+# 0.89_01 0.93_01 have it, but were dev releases
+
 
 our @ISA;
 
