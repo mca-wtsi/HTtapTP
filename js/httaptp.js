@@ -71,6 +71,7 @@ function($,        tp) {
       "X-HTtapTP-Name": // "name" from @name || @id
           ele.attr("name") || ele.attr("id"),
       "X-HTtapTP-Version": version,
+      "X-HTtapTP-Timeout": timeout,
     };
 
     var fn_deliver = function(data) {
