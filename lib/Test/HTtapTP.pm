@@ -9,6 +9,10 @@ sub __init {
     # will show an explicit failure
     my $Test = Test::HTtapTP::Builder->rebless_singleton;
 
+    $Test->set_SIG;
+    # Do all setup except web-specific stuff, so tests behave the same
+    # under prove(1)
+
     $Test->init_for_web if $ENV{GATEWAY_INTERFACE};
 
     return;

@@ -76,9 +76,15 @@ fail/05dubious_die.t:
   test: fail/05dubious_die.t
   tool: perl
 fail/sigINT.t:
-  err: ''
+  err: |2
+    
+    #   Failed test 'Caught SIGINT in Test::HTtapTP::Builder; will re-zap self'
+    #   at egt/fail/sigINT.t line 10.
   exit: 2
-  out: "1..1\nok 1 - true\n"
+  out: |
+    1..1
+    ok 1 - true
+    not ok 2 - Caught SIGINT in Test::HTtapTP::Builder; will re-zap self
   test: fail/sigINT.t
   tool: perl
 fail/sigKILL__TODO.t:
@@ -88,9 +94,15 @@ fail/sigKILL__TODO.t:
   test: fail/sigKILL__TODO.t
   tool: perl
 fail/sigQUIT.t:
-  err: ''
+  err: |2
+    
+    #   Failed test 'Caught SIGQUIT in Test::HTtapTP::Builder; will re-zap self'
+    #   at egt/fail/sigQUIT.t line 10.
   exit: 3
-  out: "1..1\nok 1 - true\n"
+  out: |
+    1..1
+    ok 1 - true
+    not ok 2 - Caught SIGQUIT in Test::HTtapTP::Builder; will re-zap self
   test: fail/sigQUIT.t
   tool: perl
 pass/01small.t:

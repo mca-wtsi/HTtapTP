@@ -67,4 +67,21 @@ sub _warn {
 }
 
 
+# Set %SIG handlers to attempt to tell STDOUT of our demise
+sub set_SIG {
+    my ($self) = @_;
+
+    my $cls = ref($self);
+    foreach my $sig (qw( HUP INT QUIT USR1 USR2 PIPE ALRM TERM CHLD XCPU )) {
+        my $msg = "Caught SIG$sig in $cls; will re-zap self";
+        $SIG{$sig} = sub {
+            $self->ok(0, $msg);
+            delete $SIG{$sig};
+            kill $sig, $$;
+            die "$msg - failed?"; # just in case
+        };
+    }
+    return;
+}
+
 1;
