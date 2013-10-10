@@ -12,25 +12,29 @@ use YAML qw( Dump );
 use Test::Differences; # could be made optional
 use Try::Tiny;
 use File::Slurp qw( slurp write_file );
+use File::Temp qw( tempfile );
 
 
 my $egt_dir;
+my $flavour;
 sub main {
-    plan tests => 6;
+    plan tests => 8;
 
     $egt_dir = __FILE__;
     $egt_dir =~ s{t/egt_results\.t$}{egt}
       or die "Cannot find egt/ from $egt_dir";
 
-    local $ENV{TEST_HTTAPTP_INHIBIT} = 0;
-    subtest passes_prove => \&passes_tt;
-    subtest fails_prove  => \&fails_tt;
-    subtest output_prove => \&output_tt;
+    foreach my $F (qw( direct native indirect )) {
+        # Run under prove(1) by various routes
+        $flavour = $F;
+        subtest "passes_$flavour" => \&passes_tt;
+        subtest "fails_$flavour"  => \&fails_tt;
 
-    $ENV{TEST_HTTAPTP_INHIBIT} = 1;
-    subtest passes_native => \&passes_tt;
-    subtest fails_native  => \&fails_tt;
-    subtest output_native => \&output_tt;
+        next if $F eq 'indirect'; # only prove(1) is affected by indirect
+
+        # Examine the output with + without extra hackery
+        subtest "output_$flavour" => \&output_tt;
+    }
 
     return;
 }
@@ -38,15 +42,16 @@ sub main {
 
 # Test that every egt/pass/* test does pass
 sub passes_tt {
-    plan tests => 3;
-    my $capt = do_capture_egt(prove => "pass");
-    my $test_plans = () = $capt->{out} =~ m{^(\d+\.\.\d+)\n}mg;
+    my @t = grep { m{^pass} } all_test_files();
+    plan tests => 2*@t;
 
-    my $ok = 1;
-    $ok &= is($capt->{exit}, 0, "prove pass/ exit code");
-    $ok &= is($test_plans, 5, "prove pass/ test plan count");
-    $ok &= like($capt->{out}, qr{^ok }m, "prove pass/ some ok");
-    diagcapt($capt) unless $ok;
+    foreach my $t (@t) {
+        my $capt = do_capture_egt(prove => $t);
+        my $ok = 1;
+        $ok &= is($capt->{exit}, 0, "prove $t: exit code");
+        $ok &= like($capt->{out}, qr{^ok }m, "prove pass/ some ok");
+        diagcapt($capt) unless $ok;
+    }
 
     return;
 }
@@ -69,7 +74,6 @@ sub fails_tt {
 
 sub output_tt {
     my @t = all_test_files();
-    my $flavour = $ENV{TEST_HTTAPTP_INHIBIT} ? 'native' : 'direct';
     plan tests => 1;
 
     my $want_fn = "$egt_dir/want_$flavour.yaml";
@@ -114,8 +118,10 @@ sub all_test_files {
 sub do_capture_egt {
     my ($tool, $t) = @_;
 
+    local $ENV{TEST_HTTAPTP_INHIBIT} = ($flavour eq 'native');
+
     my @cmd;
-    if ($tool eq 'perl') {
+    if ($tool eq 'perl' || $flavour eq 'indirect') {
         @cmd = ($^X);
     } elsif ($tool eq 'prove') {
         @cmd = qw( prove -rv );
@@ -126,6 +132,25 @@ sub do_capture_egt {
     my ($out, $err, $exit) = capture {
         system(@cmd, "$egt_dir/$t");
     };
+
+    if ($flavour eq 'indirect' && $tool eq 'prove') {
+        # Emulate the passing of STDOUT across HTTP.
+        #
+        # $exit and $err are lost, possibly leaving trace in the
+        # webserver logs.
+        my $tap = $out;
+
+        my ($fh, $filename) = tempfile('egt_indirect.XXXXXX',
+                                       TMPDIR => 1, UNLINK => 0);
+        print {$fh} $tap or die "Writing TAP to $filename: $!";
+        close $fh;
+
+        @cmd = qw( prove -v -e cat );
+        ($out, $err, $exit) = capture {
+            # XXX:UNIX assuming we have cat(1)
+            system(@cmd, $filename);
+        };
+    }
 
     return { tool => $tool, test => $t,
              out => $out, err => $err, exit => $exit };
