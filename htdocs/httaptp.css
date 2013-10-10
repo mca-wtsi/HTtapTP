@@ -35,9 +35,8 @@
   display: none;
 }
 
-/* in [data-tap-src].show the !important are vs. the .tap-compact version */
 [data-tap-src].show pre {
-  display: block  ! important;
+  display: block;
   position: fixed;
   top: 6em;
   left: 10%;
@@ -58,26 +57,22 @@
   width: auto;
   height: auto;
 }
-[data-tap-src].show div.control button {
-  display: inline ! important;
-  font-size: 100% ! important;
-}
 
-/* Experimental: a compact mode */
-.tap-compact [data-tap-src],
- [data-tap-src].tap-compact {
+/* Experimental: a compact mode - requires CSS3 for :not() */
+.tap-compact [data-tap-src]:not(.show),
+ [data-tap-src].tap-compact:not(.show) {
   padding: 2px;
 }
-.tap-compact [data-tap-src] pre,
- [data-tap-src].tap-compact pre {
+.tap-compact [data-tap-src]:not(.show) pre,
+ [data-tap-src].tap-compact:not(.show) pre {
   display: none;
 }
-.tap-compact [data-tap-src] div.control button,
- [data-tap-src].tap-compact div.control button {
+.tap-compact [data-tap-src]:not(.show) div.control button,
+ [data-tap-src].tap-compact:not(.show) div.control button {
   display: none;
 }
-.tap-compact [data-tap-src] div.control button[data-op="Show"],
- [data-tap-src].tap-compact div.control button[data-op="Show"] {
+.tap-compact [data-tap-src]:not(.show) div.control button[data-op="Show"],
+ [data-tap-src].tap-compact:not(.show) div.control button[data-op="Show"] {
   display: inline;
   font-size: 50%;
   padding: 0px;
