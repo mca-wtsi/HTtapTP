@@ -4,9 +4,12 @@ use strict;
 use warnings;
 
 use lib 'lib'; # ugh, but my plackup works
-my $lib = $ENV{PERL5LIB};
-%ENV = (); # don't need all that
-$ENV{PERL5LIB} = "lib:$lib"; # double ugh, but cgi subprocess works
+
+my @keep_ENV = qw( PERL5LIB PATH );
+%ENV = map {( $_ => $ENV{$_} )} @keep_ENV; # don't need most of that
+warn "Cleaned %ENV except @keep_ENV";
+
+$ENV{PERL5LIB} = "lib:$ENV{PERL5LIB}"; # double ugh, but cgi subprocess works
 
 use Test::HTtapTP::App;
 
