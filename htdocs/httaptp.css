@@ -34,8 +34,10 @@
   overflow: hidden;
   display: none;
 }
+
+/* in [data-tap-src].show the !important are vs. the .tap-compact version */
 [data-tap-src].show pre {
-  display: block;
+  display: block  ! important;
   position: fixed;
   top: 6em;
   left: 10%;
@@ -55,4 +57,32 @@
   padding: 1ex;
   width: auto;
   height: auto;
+}
+[data-tap-src].show div.control button {
+  display: inline ! important;
+  font-size: 100% ! important;
+}
+
+/* Experimental: a compact mode */
+.tap-compact [data-tap-src],
+ [data-tap-src].tap-compact {
+  padding: 2px;
+}
+.tap-compact [data-tap-src] pre,
+ [data-tap-src].tap-compact pre {
+  display: none;
+}
+.tap-compact [data-tap-src] div.control button,
+ [data-tap-src].tap-compact div.control button {
+  display: none;
+}
+.tap-compact [data-tap-src] div.control button[data-op="Show"],
+ [data-tap-src].tap-compact div.control button[data-op="Show"] {
+  display: inline;
+  font-size: 50%;
+  padding: 0px;
+  margin: 0px;
+  border: none;
+  text-decoration: underline;
+  background: none;
 }
