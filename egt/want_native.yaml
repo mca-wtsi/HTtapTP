@@ -135,3 +135,12 @@ pass/05dubious_die.t:
   out: "1..1\nok 1 - true\n"
   test: pass/05dubious_die.t
   tool: perl
+pass/06fork.t:
+  err: ''
+  exit: 0
+  out: |
+    1..2
+    ok 1 - true
+    ok 2 - got text from child
+  test: pass/06fork.t
+  tool: perl

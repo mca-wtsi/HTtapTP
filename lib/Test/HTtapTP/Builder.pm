@@ -72,7 +72,7 @@ sub set_SIG {
     my ($self) = @_;
 
     my $cls = ref($self);
-    foreach my $sig (qw( HUP INT QUIT USR1 USR2 PIPE ALRM TERM CHLD XCPU )) {
+    foreach my $sig (qw( HUP INT QUIT USR1 USR2 PIPE ALRM TERM XCPU )) {
         my $msg = "Caught SIG$sig in $cls; will re-zap self";
         $SIG{$sig} = sub {
             $self->ok(0, $msg);
