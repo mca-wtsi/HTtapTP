@@ -6,7 +6,7 @@ define(
 function($,        tp) {
   "use strict";
 
-  var version = "0.02"; // XXX: not synced from Git
+  var version = "0.03"; // XXX: not synced from Git
 
   var put_results = function(results, ele) {
     console.log("Results from " + ele.attr("data-tap-src"));
