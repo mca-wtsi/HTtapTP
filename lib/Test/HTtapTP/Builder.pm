@@ -15,8 +15,12 @@ sub rebless_singleton {
     my ($pkg, $obj) = @_;
 
     $obj ||= Test::Builder->new; # the singleton
-    @ISA = (ref($obj)); # subclass of...  whatever we were given
-    bless $obj, $pkg; # rebless
+    if ($obj->isa($pkg)) {
+        # done already
+    } else {
+        @ISA = (ref($obj)); # subclass of...  whatever we were given
+        bless $obj, $pkg; # rebless
+    }
 
     return $obj;
 }
