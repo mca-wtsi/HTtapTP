@@ -87,6 +87,16 @@ function($,        tp) {
       parser.end();
     };
     var fn_error = function(jqXHR, textStatus, errorThrown) {
+      if (textStatus == 'error') {
+        if (jqXHR.status == 0 || jqXHR.getAllResponseHeaders() == "") {
+          // This is rule of thumb, based on
+          // http://www.html5rocks.com/en/tutorials/cors/#toc-known-bugs
+          //
+          // No error information provided [...] it can be confusing
+          // when trying to debug why CORS requests are failing.
+          errorThrown += "\nSuspected by httaptp.js: CORS blocking in browser";
+        }
+      }
       var bogo_doc = "not ok 1 - " + textStatus + " while fetching " + url
         + "\n# " + errorThrown;
       // textStatus could be "error", "timeout" ...
