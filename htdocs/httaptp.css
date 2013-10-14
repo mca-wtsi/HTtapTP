@@ -22,11 +22,11 @@
 }
 
 [data-tap-src].fail {
-  background: #a00000;
+  background: #ff3030;
 }
 
 [data-tap-src].pass {
-  background: #00a000;
+  background: #80e080;
 }
 [data-tap-src].pass pre {
   height: 3em;
