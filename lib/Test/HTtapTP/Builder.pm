@@ -2,12 +2,17 @@ package Test::HTtapTP::Builder;
 use strict;
 use warnings;
 
+use CGI;
+use Carp;
+
 use Test::Builder 0.94;
 # 0.92 doesn't have the is_passing hook we need
 # 0.89_01 0.93_01 have it, but were dev releases
 
 
 our @ISA;
+our @CARP_NOT = qw( Test::HTtapTP );
+
 
 # This is horrible.  Monkey-patching Test::Builder::is_passing is an
 # alternative which seemed worse.
@@ -50,14 +55,69 @@ sub make_failure_explicit {
 }
 
 
-sub init_for_web {
+# Using CGI.pm because it's there and we don't need much.
+# Private because new frameworks shouldn't be tied to it.
+sub _cgi {
     my ($self) = @_;
+    return $self->{__PACKAGE__.'/_cgi'} ||= CGI->new;
+}
 
-    print "Content-type: text/plain\n\n";
-    $self->failure_output(\*STDOUT);
+sub init_for_web {
+    my ($self, $use_no, @opt) = @_;
 
-    $SIG{__WARN__} = sub { $self->_warn(w => @_); warn @_ };
-    $SIG{__DIE__} = sub { $self->_warn(e => @_); die @_ };
+    # We get import/unimport options here
+    my %opt;
+    while (@opt) {
+        my $opt = shift @opt;
+        if ($opt eq ':cors_ok') {
+            $opt{$opt} = $use_no;
+        } else {
+            croak "Unknown import option '$opt'";
+        }
+    }
+
+    # Check the HTTP call?
+    my $cgi = $self->_cgi;
+    my $meth = $cgi->request_method;
+    if ($meth eq 'GET') {
+        # Run the tests
+        print "Access-Control-Allow-Origin: *\n".
+          "Access-Control-Expose-Headers: Content-Type\n"
+            if $opt{':cors_ok'};
+        print "Content-type: text/plain\n\n";
+        $self->failure_output(\*STDOUT);
+
+        $SIG{__WARN__} = sub { $self->_warn(w => @_); warn @_ };
+        $SIG{__DIE__} = sub { $self->_warn(e => @_); die @_ };
+        # ...continue with script compile + run ...
+
+    } elsif ($meth eq 'OPTIONS' && $cgi->http('Origin') && $cgi->http('Access-Control-Request-Method')) {
+        # CORS request
+        if ($opt{':cors_ok'}) {
+            print "Status: 204 No Content
+Access-Control-Allow-Origin: *
+Access-Control-Allow-Methods: GET
+Access-Control-Allow-Headers: X-HTtapTP-Name, X-HTtapTP-Version, X-HTtapTP-Timeout
+Access-Control-Max-Age: 30\n\n";
+
+            # Request is handled, even before the script is compiled
+            exit 0;
+
+        } else {
+            my $pkg = ref($self);
+            my $msg = "CORS not enabled by default.  Import ':cors_ok' to enable";
+            print "Status: 403 Forbidden
+Content-Type: text/plain\n
+$msg\n";
+            croak $msg;
+        }
+
+    } else {
+        print "Status: 400 Bad Request
+Content-type: text/plain\n\n
+not ok 1 - request type $meth is not accepted\n";
+        die "Bad method $meth - request aborted";
+    }
 
     return;
 }
