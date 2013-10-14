@@ -18,7 +18,7 @@
 }
 
 [data-tap-src].loading {
-  border: 5px yellow solid;
+  background: #ffa500;
 }
 
 [data-tap-src].fail {
