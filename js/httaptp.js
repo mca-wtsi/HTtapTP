@@ -8,9 +8,25 @@ function($,        tp) {
 
   var version = "0.03"; // XXX: not synced from Git
 
-  var GET_data = function(ele) {
-    var data = {};
-    return data;
+  var GET_data = function(ele, data) {
+    var txt = ele.attr("data-tap-data");
+    if (txt) {
+        var more;
+        try {
+            more = $.parseJSON(txt);
+        } catch (e) {
+            more = { bad_JSON: e }; // as an error handler, it is minimal
+        }
+        $.extend(data, more);
+    }
+    // handling of parents for GET data might need to change,
+    // e.g. does it see <col> ?
+    var up = ele.parents("[data-tap-data]");
+    if (up[0]) {
+        return GET_data(up.eq(0), data);
+    } else {
+        return data;
+    }
   };
 
   var put_results = function(results, ele) {
@@ -72,7 +88,7 @@ function($,        tp) {
     var url = ele.attr("data-tap-src");
     var timeout = ele.attr("data-tap-timeout-ms") || 30000;
 
-    var qdata = GET_data(ele);
+    var qdata = GET_data(ele, {});
     qdata["id"] = ele.attr("name") || ele.attr("id");
     qdata["HTtapTP"] = version;
     qdata["timeout"] = timeout; // ms

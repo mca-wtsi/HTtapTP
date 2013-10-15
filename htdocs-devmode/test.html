@@ -19,9 +19,10 @@ td {
 
   <div id="another"    data-tap-src="cgi-bin/tap-poc" class=tap-compact ></div>
   <div id="plain fail" data-tap-src="cgi-bin/tap-poc"></div>
-  <table class=tap-compact>
+  <table class=tap-compact data-tap-data='{ "in": "table.tap-compact" }'>
    <tr>
-    <td name="try-it"  data-tap-src="cgi-bin/tap-poc"></td>
+    <td name="try-it"  data-tap-src="cgi-bin/tap-poc"
+        data-tap-data='{ "foo": "bar", "qux": "asdf" }'></td>
     <td name="b0rk"    data-tap-src="cgi-bin/tap-poc"></td>
    </tr><tr>
     <td name="foom"    data-tap-src="yerky/moogle"   colspan="2"></td>
