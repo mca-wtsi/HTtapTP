@@ -8,6 +8,11 @@ function($,        tp) {
 
   var version = "0.03"; // XXX: not synced from Git
 
+  var GET_data = function(ele) {
+    var data = {};
+    return data;
+  };
+
   var put_results = function(results, ele) {
     console.log("Results from " + ele.attr("data-tap-src"));
     ele.removeClass('loading');
@@ -67,12 +72,10 @@ function($,        tp) {
     var url = ele.attr("data-tap-src");
     var timeout = ele.attr("data-tap-timeout-ms") || 30000;
 
-    var hdrs = {
-      "X-HTtapTP-Name": // "name" from @name || @id
-          ele.attr("name") || ele.attr("id"),
-      "X-HTtapTP-Version": version,
-      "X-HTtapTP-Timeout": timeout,
-    };
+    var qdata = GET_data(ele);
+    qdata["id"] = ele.attr("name") || ele.attr("id");
+    qdata["HTtapTP"] = version;
+    qdata["timeout"] = timeout; // ms
 
     var fn_deliver = function(data) {
       ele.find("pre")[0].textContent = data; // HTML is quoted for us
@@ -108,7 +111,8 @@ function($,        tp) {
       type: "GET",
       dataType: "text",
       timeout: timeout, // ms
-      headers: hdrs,
+      data: qdata,
+      // headers: {}, // likely to provoke CORS preflight check
       success: fn_deliver,
       error: fn_error,
     }));

@@ -7,11 +7,13 @@ use warnings;
 use Test::HTtapTP;
 use Test::More;
 
+use CGI;
+
 sub main {
     plan tests => 3;
 
-    my $name = $ENV{HTTP_X_HTTAPTP_NAME} || '';  # XXX: non-API
-    diag "name = $name";
+    my $name = CGI->new->param('id') || '';  # XXX: non-API
+    diag "id = $name";
 
     ok(5, "five");
     is(2+2, 4, "2+2=");
