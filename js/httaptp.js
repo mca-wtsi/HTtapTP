@@ -6,7 +6,7 @@ define(
 function($,        tp) {
   "use strict";
 
-  var version = "0.03"; // XXX: not synced from Git
+  var version = "0.05"; // XXX: not synced from Git
 
   var GET_data = function(ele, data) {
     var txt = ele.attr("data-tap-data");
