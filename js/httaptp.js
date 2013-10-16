@@ -128,9 +128,11 @@ function($,        tp) {
       dataType: "text",
       timeout: timeout, // ms
       data: qdata,
-      // headers: {}, // likely to provoke CORS preflight check
       success: fn_deliver,
       error: fn_error,
+      // any non-simple headers may provoke CORS preflight check
+      headers: { cookie: null },
+      xhrFields: { withCredentials: false }, // browser cookies are being passed...?  this doesn't stop them
     }));
   };
 
