@@ -32,6 +32,37 @@ While continuing to allow them to run directly under F<prove(1)>
 =back
 
 
+=head1 CAVEATS
+
+=over 4
+
+=item * Some parts of the TAP spec are not supported.
+
+TODO tests look like failures.
+
+=item * The global $SIG{__DIE__} shows up internal stuff in some code.
+
+https://rt.cpan.org/Ticket/Display.html?id=75390
+
+L<Test::More/plan> C<skip_all>
+
+=item * API is missing, to unify @ARGV and CGI params.
+
+Best to not use either?
+
+=item * No standard mechanism to enumerate tests remotely.
+
+The first application of this has CGI to enumerate tests and
+webservers, assume the set of tests is the same elsewhere, and draw a
+2D grid.  It is internal.
+
+=item * Various issues with CORS.
+
+http://enable-cors.org/
+
+=back
+
+
 =head1 AUTHOR
 
 Matthew Astley C<< <mca@sanger.ac.uk> >>
