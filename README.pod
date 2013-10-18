@@ -31,6 +31,10 @@ While continuing to allow them to run directly under F<prove(1)>
 
 =back
 
+Screenshot is in F<htdocs-devmode/demo-screenshot-ed76dc.png> .
+
+=for html <br> <img src="htdocs-devmode/demo-screenshot-ed76dc.png">
+
 
 =head1 CAVEATS
 
