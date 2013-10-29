@@ -19,6 +19,9 @@
   border-radius: 1.5ex;
   padding: 1.5ex;
 }
+[data-tap-src] a.raw {
+  display: none;
+}
 
 [data-tap-src].loading {
   background: #ffa500;
@@ -70,6 +73,10 @@
 [data-tap-src].show.fail    div.control { background: #781010 }
 [data-tap-src].show.pass    div.control { background: #107810 }
 [data-tap-src].show.loading div.control { background: #785311 }
+
+[data-tap-src].show a.raw {
+  display: inline;
+}
 
 
 /* Experimental: a compact mode - requires CSS3 for :not() */

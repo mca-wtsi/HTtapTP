@@ -63,6 +63,8 @@ function($,        tp) {
       ctrl.innerHTML += "<button data-op='" + btns[i] + "' type='button'>"
         + btns[i] + "</button>\n";
     }
+    var url = ele.attr("data-tap-src");
+    ctrl.innerHTML += "<a class='raw' href='" + url + "'> Raw TAP </a>";
     ele.find("div.control button").on("click", { ele: ele }, control_ev);
   };
 
