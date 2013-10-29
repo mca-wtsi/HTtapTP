@@ -30,7 +30,6 @@ function($,        tp) {
   };
 
   var put_results = function(results, ele) {
-    console.log("Results from " + ele.attr("data-tap-src"));
     ele.removeClass('loading');
     ele.addClass( results["ok"] ? 'pass' : 'fail' );
   };
