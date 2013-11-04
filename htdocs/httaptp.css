@@ -8,6 +8,20 @@
 [data-tap-src][class]:before { content: normal }
 
 
+/* all result-dependent colour definitions */
+[data-tap-src].loading                       { background: #ffa500 }
+[data-tap-src].pass                          { background: #80e080 }
+[data-tap-src].fail                          { background: #ff3030 }
+
+[data-tap-src].loading                   pre { border-color: #785311 }
+[data-tap-src].pass                      pre { border-color: #107810 }
+[data-tap-src].fail                      pre { border-color: #781010 }
+
+[data-tap-src].show.loading      div.control { background: #785311 }
+[data-tap-src].show.pass         div.control { background: #107810 }
+[data-tap-src].show.fail         div.control { background: #781010 }
+
+
 /* classes & elements added by JavaScript */
 [data-tap-src] pre {
   white-space: pre-wrap;
@@ -23,29 +37,12 @@
   display: none;
 }
 
-[data-tap-src].loading {
-  background: #ffa500;
-}
-[data-tap-src].loading pre {
-  border-color: #785311;
-}
 
-[data-tap-src].fail {
-  background: #ff3030;
-}
-[data-tap-src].fail pre {
-  border-color: #781010;
-}
-
-[data-tap-src].pass {
-  background: #80e080;
-}
 [data-tap-src].pass pre {
   height: 3em;
   width: 3em;
   overflow: hidden;
   display: none;
-  border-color: #107810;
 }
 
 [data-tap-src].show pre {
@@ -70,9 +67,6 @@
   width: auto;
   height: auto;
 }
-[data-tap-src].show.fail    div.control { background: #781010 }
-[data-tap-src].show.pass    div.control { background: #107810 }
-[data-tap-src].show.loading div.control { background: #785311 }
 
 [data-tap-src].show a.raw {
   display: inline;
