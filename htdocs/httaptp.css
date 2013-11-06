@@ -17,9 +17,17 @@
 [data-tap-src].pass                      pre { border-color: #107810 }
 [data-tap-src].fail                      pre { border-color: #781010 }
 
+[data-tap-src].pass.todo                     { background: #80ff00 }
+[data-tap-src].fail.todo                     { background: #ffd0d0 }
+[data-tap-src].pass.skip                     { background: #d0ffd0 }
+[data-tap-src].fail.xfer                     { background: #800060 }
+
 [data-tap-src].show.loading      div.control { background: #785311 }
 [data-tap-src].show.pass         div.control { background: #107810 }
 [data-tap-src].show.fail         div.control { background: #781010 }
+[data-tap-src].pass.todo         div.control { background: #80ff00 }
+[data-tap-src].fail.todo         div.control { background: #ffd0d0 }
+[data-tap-src].show.pass.skip    div.control { background: #d0ffd0 }
 
 
 /* classes & elements added by JavaScript */

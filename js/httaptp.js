@@ -29,9 +29,30 @@ function($,        tp) {
     }
   };
 
-  var put_results = function(results, ele) {
+  var put_results = function(results, ele, xfer_status) {
     ele.removeClass('loading');
-    ele.addClass( results["ok"] ? 'pass' : 'fail' );
+    var ok = results["ok"];
+
+    // deal with variations on plain pass,fail
+    if (results.plan && results.plan.skip_all) {
+      ele.addClass('skip');
+    } else if (results.fail.length == 0 &&
+        results.todo && results.todo.length) {
+      ele.addClass('todo');
+      // downgrade the pass if the failing items are all todo
+      // (by default the suite just passes)
+      for(var i=0; i<results.todo.length; i++) {
+        ok &= results.todo[i].ok;
+      }
+    }
+    ele.addClass( ok ? 'pass' : 'fail' );
+
+    if (xfer_status == 'success') {
+      // arg from jqXHR, tells only of transfer success
+      xfer_status = undefined;
+    } else {
+      ele.addClass('xfer'); // generic transfer problem
+    }
   };
 
   var control_fns = {
@@ -84,6 +105,9 @@ function($,        tp) {
     ele.find("pre")[0].innerHTML = ' Loading ... ';
     ele.removeClass('pass');
     ele.removeClass('fail');
+    ele.removeClass('xfer');
+    ele.removeClass('skip');
+    ele.removeClass('todo');
     ele.prop({ results: null });
 
     var url = ele.attr("data-tap-src");
@@ -94,12 +118,11 @@ function($,        tp) {
     qdata["HTtapTP"] = version;
     qdata["timeout"] = timeout; // ms
 
-    var fn_deliver = function(data) {
+    var fn_deliver = function(data, xfer_status) {
       ele.find("pre")[0].textContent = data; // HTML is quoted for us
-
       var parser = tp();
       parser.on("results", function (results) {
-        put_results(results, ele);
+        put_results(results, ele, xfer_status);
         ele.prop('results', results);
       });
 
@@ -120,7 +143,7 @@ function($,        tp) {
       var bogo_doc = "not ok 1 - " + textStatus + " while fetching " + url
         + "\n# " + errorThrown;
       // textStatus could be "error", "timeout" ...
-      fn_deliver(bogo_doc);
+      fn_deliver(bogo_doc, textStatus);
     };
 
     ele.prop('jqXHR', $.ajax({
