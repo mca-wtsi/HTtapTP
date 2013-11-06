@@ -111,12 +111,14 @@ function($,        tp) {
     ele.prop({ results: null });
 
     var url = ele.attr("data-tap-src");
-    var timeout = ele.attr("data-tap-timeout-ms") || 30000;
 
-    var qdata = GET_data(ele, {});
+    // Collect GET data from DOM, with defaults
+    var qdata = GET_data(ele, {
+      timeout: 30000, // millisec
+    });
+    // Override some keys
     qdata["id"] = ele.attr("name") || ele.attr("id");
     qdata["HTtapTP"] = version;
-    qdata["timeout"] = timeout; // ms
 
     var fn_deliver = function(data, xfer_status) {
       ele.find("pre")[0].textContent = data; // HTML is quoted for us
@@ -146,6 +148,7 @@ function($,        tp) {
       fn_deliver(bogo_doc, textStatus);
     };
 
+    var timeout = Number.toInteger( qdata["timeout"] );
     ele.prop('jqXHR', $.ajax({
       url: url,
       type: "GET",
