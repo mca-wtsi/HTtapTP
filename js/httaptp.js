@@ -194,7 +194,7 @@ function($,        tp) {
       ' <li class="fail todo"> Fail, TODO <span>(weak fail)</span> </li>' +
       ' <li class="fail"> Fail </li>' +
       ' <li class="fail xfer"> Transfer failed </li>' +
-      '</ol>';
+      '</ol> <small> nb. TODO in subtest may not show up </small>';
     sel_all.find("li").attr("data-tap-src", "");
   };
 
