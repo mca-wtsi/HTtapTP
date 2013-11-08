@@ -8,6 +8,13 @@
 [data-tap-src][class]:before { content: normal }
 
 
+/* Key to colour codes.
+ *
+ * Unstyled, so the source document can do it.
+ */
+/* div.tap-key ol li */
+
+
 /* all result-dependent colour definitions */
 [data-tap-src].loading                       { background: #ffa500 }
 [data-tap-src].pass                          { background: #80e080 }

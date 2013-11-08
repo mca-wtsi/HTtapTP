@@ -164,6 +164,12 @@ function($,        tp) {
   };
 
   var fetch_tap = function(got_with, ele) {
+    var url = ele.attr("data-tap-src");
+    if (url === undefined || url === "") {
+      // No source.  We are either running on the wrong thing, or it
+      // is part of ol.tap-key
+      return;
+    }
     ele.prop('selector', got_with);
     add_controls(ele, [ 'Show', 'Cancel', 'Reload', 'Log' ]);
     tap_load_parse(ele);
@@ -176,8 +182,25 @@ function($,        tp) {
     }
   };
 
+  var show_key_in_doc = function(selector) {
+    var sel_all = $( selector ).eq(0);
+    if (sel_all.length == 0) return;
+    sel_all[0].innerHTML +=
+      '<ol>' +
+      ' <li class="loading"> Waiting <span>for results</span> </li>' +
+      ' <li class="pass"> Pass </li>' +
+      ' <li class="pass skip"> Skip all <span>(weak pass)</span> </li>' +
+      ' <li class="pass todo"> Pass, TODO <span>(unexpected pass)</span> </li>' +
+      ' <li class="fail todo"> Fail, TODO <span>(weak fail)</span> </li>' +
+      ' <li class="fail"> Fail </li>' +
+      ' <li class="fail xfer"> Transfer failed </li>' +
+      '</ol>';
+    sel_all.find("li").attr("data-tap-src", "");
+  };
+
   return {
     load_to_doc: load_to_doc,
+    show_key_in_doc: show_key_in_doc,
     fetch_tap: fetch_tap,
     version: version,
     ctrl: control_fns,

@@ -10,5 +10,6 @@ require.config({
 
 require([ 'httaptp' ],
 function  (httaptp) {
+  httaptp.show_key_in_doc("div.tap-key");
   httaptp.load_to_doc("[data-tap-src]");
 });
