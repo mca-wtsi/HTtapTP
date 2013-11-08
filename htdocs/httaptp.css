@@ -81,7 +81,7 @@
 }
 
 
-/* Experimental: a compact mode - requires CSS3 for :not() */
+/* Compact mode - requires CSS3 for :not() */
 .tap-compact [data-tap-src]:not(.show),
  [data-tap-src].tap-compact:not(.show) {
   padding: 2px;
