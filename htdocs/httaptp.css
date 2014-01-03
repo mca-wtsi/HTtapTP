@@ -8,6 +8,11 @@
 [data-tap-src][class]:before { content: normal }
 
 
+/* link fragment highlight */
+[data-tap-src]:target, .key-frag-hi {
+  border: 0.75ex black double;
+}
+
 /* Key to colour codes.
  *
  * Unstyled, so the source document can do it.
@@ -48,7 +53,7 @@
   border-radius: 1.5ex;
   padding: 1.5ex;
 }
-[data-tap-src] a.raw {
+[data-tap-src] .ctrl_ln {
   display: none;
 }
 
@@ -83,7 +88,7 @@
   height: auto;
 }
 
-[data-tap-src].show a.raw {
+[data-tap-src].show .ctrl_ln {
   display: inline;
 }
 

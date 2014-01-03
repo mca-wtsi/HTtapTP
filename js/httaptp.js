@@ -84,7 +84,12 @@ function($,        tp) {
         + btns[i] + "</button>\n";
     }
     var url = ele.attr("data-tap-src");
-    ctrl.innerHTML += "<a class='raw' href='" + url + "'> Raw TAP </a>";
+    var ln = "<a class='raw' href='" + url + "'> Raw TAP </a>";
+    var id = ele.attr("name") || ele.attr("id");
+    if (id) {
+      ln += " | <a class='anchor' href='#" + id + "'> Link this </a>";
+    }
+    ctrl.innerHTML += "<span class='ctrl_ln'>" + ln + "</span>";
     ele.find("div.control button").on("click", { ele: ele }, control_ev);
   };
 
@@ -194,6 +199,7 @@ function($,        tp) {
       ' <li class="fail todo"> Fail, TODO <span>(weak fail)</span> </li>' +
       ' <li class="fail"> Fail </li>' +
       ' <li class="fail xfer"> Transfer failed </li>' +
+      ' <li class="key-frag-hi"> This one </li>' +
       '</ol> <small> nb. TODO in subtest may not show up </small>';
     sel_all.find("li").attr("data-tap-src", "");
   };
