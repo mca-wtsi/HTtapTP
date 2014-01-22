@@ -153,7 +153,7 @@ function($,        tp) {
       fn_deliver(bogo_doc, textStatus);
     };
 
-    var timeout = Number.toInteger( qdata["timeout"] );
+    var timeout = parseInt(qdata["timeout"], 10);
     ele.prop('jqXHR', $.ajax({
       url: url,
       type: "GET",
