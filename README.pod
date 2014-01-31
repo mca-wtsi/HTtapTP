@@ -21,13 +21,36 @@ This tool arose from
 
 =over 4
 
+=item * enumerate TAP-producing URLs (not implemented here)
+
+There is an implementation in the team-internal C<webvm.git>, which
+could benefit from liberation.
+
+It lists other backend servers from a nearby configuration file , then
+lists CGI scripts in a path relative to the C<$DOCUMENT_ROOT> and
+assumes these are present everywhere.  Then it draws a table of
+(server, TAP path) cells.
+
+See also L</Finding tests>.
+
 =item * generate TAP from CGI scripts
 
-While continuing to allow them to run directly under F<prove(1)>
+While continuing to allow them to run directly under F<prove(1)>, and
+then noting that this ability can easily bit-rot because the test can
+be less convenient to run.
 
 =item * load and parse the TAP in the web browser
 
 =item * display neat green / red output
+
+=item * report the summary back to somewhere (not implemented)
+
+=item * extend L<prove(1)> to let it fetch HTtapTP (not implemented)
+
+For now, I use this
+
+ #! /bin/sh
+ exec prove -e 'curl -s' "$@"
 
 =back
 
@@ -65,6 +88,37 @@ webservers, assume the set of tests is the same elsewhere, and draw a
 http://enable-cors.org/
 
 =back
+
+
+=head1 FUTURE PLANS
+
+=head2 Finding tests
+
+There is a space here for some enumeration protocol, on which to
+standardise within this context.
+
+=over 4
+
+=item * allow remote TAP URL listing
+
+=item * allow detection of L<Test::More/subtest> parts
+
+They could be called independently to increase responsiveness.
+
+=item * should not rely on HTTP directory listing
+
+This is frequently disabled for CGI script directories.
+
+=back
+
+=head2 Reporting outcomes
+
+Currently, results are displayed on screen but otherwise ephemeral.
+
+It would be good to collect them somewhere,
+e.g. L<Tapper::Reports::Receiver>, L<TAP::Harness::Archive>.
+
+C<POST>ing back to the originating enumeration URL might make sense.
 
 
 =head1 AUTHOR

@@ -31,6 +31,8 @@ sub rebless_singleton {
 }
 
 
+# See also http://markmail.org/message/5rjprcc4urpnktro
+# "Re: numeric plans - feature or symptom?" 2009-01-27
 sub is_passing {
     my $self = shift;
     if (@_ && !$_[0]) {
@@ -147,6 +149,8 @@ sub _warn {
 
 
 # Set %SIG handlers to attempt to tell STDOUT of our demise
+#
+# TODO: call make_failure_explicit instead, to clarify intent
 sub set_SIG {
     my ($self) = @_;
 
