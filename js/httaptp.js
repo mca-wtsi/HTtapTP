@@ -47,6 +47,9 @@ function($,        tp) {
     }
     ele.addClass( ok ? 'pass' : 'fail' );
 
+// call something to obtain the pass+fail line numbers from the result,
+// then colour the text.
+
     if (xfer_status == 'success') {
       // arg from jqXHR, tells only of transfer success
       xfer_status = undefined;
@@ -144,6 +147,7 @@ function($,        tp) {
           //
           // No error information provided [...] it can be confusing
           // when trying to debug why CORS requests are failing.
+// it isn't this if we see a Server: or Date: header..?
           errorThrown += "\nSuspected by httaptp.js: CORS blocking in browser";
         }
       }
@@ -160,6 +164,8 @@ function($,        tp) {
       dataType: "text",
       timeout: timeout, // ms
       data: qdata,
+// can we get progressive fetching,
+// allowing incremental or repeat-at-intervals parsing?
       success: fn_deliver,
       error: fn_error,
       // any non-simple headers may provoke CORS preflight check

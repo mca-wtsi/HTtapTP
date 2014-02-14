@@ -31,7 +31,9 @@ sub rebless_singleton {
 }
 
 
-# See also http://markmail.org/message/5rjprcc4urpnktro
+# See also
+#   http://markmail.org/message/5rjprcc4urpnktro
+#   http://markmail.org/message/egz7owlibprrpgvx - we don't provide any of that metadata
 # "Re: numeric plans - feature or symptom?" 2009-01-27
 sub is_passing {
     my $self = shift;
