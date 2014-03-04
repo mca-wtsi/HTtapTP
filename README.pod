@@ -78,7 +78,10 @@ discovered.
 
 =item * Some parts of the TAP spec are not supported.
 
-TODO tests look like failures.
+The JavaScript library used now understands TODO failures, but there
+are other parts it does not.
+
+It would be possible to replace the JS library with another.
 
 =item * The global $SIG{__DIE__} shows up internal stuff in some code.
 
@@ -90,15 +93,33 @@ L<Test::More/plan> C<skip_all>
 
 Best to not use either?
 
+Several scripts I have written take CGI parameters.  This means they
+no longer function as L<prove(1)> scripts.
+
+=item * Subtests integration with PATH_INFO
+
+It also seems like it would be nice for a TAP script like
+C</cgi-bin/mytest.t> to be reachable with C<PATH_INFO> like
+C</cgi-bin/mytest.t/subtest_name> in order to spread out the running
+and/or return results sooner.
+
+It's not clear that C<prove(1)> has a counterpart to this.
+
 =item * No standard mechanism to enumerate tests remotely.
 
 The first application of this has CGI to enumerate tests and
 webservers, assume the set of tests is the same elsewhere, and draw a
 2D grid.  It is internal.
 
+C<prove(1)> of course has direct access to the POSIX filesystem, to
+enumerate the tests.
+
 =item * Various issues with CORS.
 
 http://enable-cors.org/
+
+Passing cookies was problematic.  I put them in the GET parameters
+from the generator of the page which enumerates tests.
 
 =back
 
