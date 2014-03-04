@@ -58,6 +58,19 @@ Screenshot is in F<htdocs-devmode/demo-screenshot-ed76dc.png> .
 
 =for html <br> <img src="htdocs-devmode/demo-screenshot-ed76dc.png">
 
+=head2 Use in production
+
+Another screenshot for the 2D test grid (test scripts vs. multiple
+webservers and their load-balancing front end proxies) is in
+F<htdocs-devmode/demo-screenshot-2D-24993a3d.png>
+
+=for html <br> <img src="htdocs-devmode/demo-screenshot-2D-24993a3d.png" width=634 height=382>
+
+The generator of this page is in a separate project.  It would be good
+to make it available to others at some point - please ask if
+interested, but give some idea how the rows & columns should be
+discovered.
+
 
 =head1 CAVEATS
 
